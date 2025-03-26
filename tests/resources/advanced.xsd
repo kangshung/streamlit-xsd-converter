@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- Global type definitions -->
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element name="street" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+      <xs:element name="state" type="xs:string"/>
+      <xs:element name="zip" type="xs:string"/>
+      <xs:element name="country" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="shipping"/>
+          <xs:enumeration value="billing"/>
+          <xs:enumeration value="home"/>
+          <xs:enumeration value="work"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <xs:simpleType name="PhoneNumberType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{3}-\d{3}-\d{4}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- Root element -->
+  <xs:element name="customer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="personalInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="firstName" type="xs:string"/>
+              <xs:element name="lastName" type="xs:string"/>
+              <xs:element name="email" type="xs:string"/>
+              <xs:element name="phone" type="PhoneNumberType" minOccurs="0" maxOccurs="3"/>
+              <xs:element name="birthDate" type="xs:date"/>
+            </xs:sequence>
+            <xs:attribute name="status">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="active"/>
+                  <xs:enumeration value="inactive"/>
+                  <xs:enumeration value="pending"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="addresses">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="address" type="AddressType" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="preferences">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="contactMethod">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="email"/>
+                    <xs:enumeration value="phone"/>
+                    <xs:enumeration value="mail"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="frequency">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="daily"/>
+                    <xs:enumeration value="weekly"/>
+                    <xs:enumeration value="monthly"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="newsletter" type="xs:boolean"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="customerSince" type="xs:date"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema> 

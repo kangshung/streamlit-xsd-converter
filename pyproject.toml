@@ -1,0 +1,11 @@
+[project]
+name = "streamlit-xsd-converter"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "lxml>=5.3.1",
+    "pytest>=8.3.5",
+    "streamlit>=1.44.0",
+]

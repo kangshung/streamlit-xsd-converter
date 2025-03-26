@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!-- Define TestResults element -->
+    <xs:element name="TestResults">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="testSuites" type="xs:string" />
+                <xs:element name="testCases" type="xs:string" />
+                <xs:element name="result" type="xs:string" />
+                <xs:element name="exception" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="testProject" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- Define Severity enumeration -->
+    <xs:simpleType name="Severity">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="pass" />
+            <xs:enumeration value="fail" />
+            <xs:enumeration value="error" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema> 
