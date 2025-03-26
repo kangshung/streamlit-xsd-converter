@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://example.org/test" 
+            targetNamespace="http://example.org/test">
+            
+        <!-- Define some global elements that can be referenced -->
+        <element name="identifier" type="string"/>
+        <element name="description" type="string"/>
+        
+        <element name="document">
+            <complexType>
+                <sequence>
+                    <!-- Reference to global elements -->
+                    <element ref="tns:identifier"/>
+                    <element ref="tns:description" minOccurs="0"/>
+                    
+                    <!-- Custom elements with different namespace prefixes -->
+                    <element name="content" type="string"/>
+                    <element name="createdBy" type="string"/>
+                    <element name="createdDate" type="dateTime"/>
+                </sequence>
+                <attribute name="version" type="string" use="required"/>
+            </complexType>
+        </element>
+    </schema>
+    

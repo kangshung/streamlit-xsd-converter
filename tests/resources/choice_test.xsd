@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:element name="payment">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="amount" type="xs:decimal"/>
+                    <xs:choice>
+                        <xs:element name="creditCard">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="number" type="xs:string"/>
+                                    <xs:element name="expiry" type="xs:string"/>
+                                    <xs:element name="securityCode" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="bankTransfer">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="accountNumber" type="xs:string"/>
+                                    <xs:element name="routingNumber" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="check">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="checkNumber" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    </xs:schema>
+    

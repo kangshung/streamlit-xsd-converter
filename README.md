@@ -8,22 +8,19 @@ A robust tool for converting XML Schema Definition (XSD) files to JSON Schema fo
 - Support for simple and complex types
 - Handling of attributes, enumerations, and restrictions
 - Type mapping from XSD to JSON Schema
+- Support for namespaces and element references
+- Support for arrays (maxOccurs)
+- Support for choice elements
 - Conversion via a user-friendly Streamlit web interface
 - Download converted JSON Schemas
 
 ## Installation
 
 1. Clone this repository
-2. Install the required dependencies:
+2. Install the required dependencies using [uv](https://github.com/astral-sh/uv):
 
 ```bash
-pip install -r requirements.txt
-```
-
-Or install with development dependencies for testing:
-
-```bash
-pip install -e ".[dev]"
+uv pip install -e .
 ```
 
 ## Usage
@@ -33,7 +30,7 @@ pip install -e ".[dev]"
 Run the Streamlit application:
 
 ```bash
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
 Then:
@@ -63,34 +60,48 @@ print(json.dumps(json_schema, indent=2))
 
 ## Project Structure
 
-- `app.py` - Streamlit web application for user interface
-- `xsd_converter.py` - Core conversion logic
-- `tests/` - Unit tests
-  - `test_xsd_converter.py` - Test cases for the converter
-  - `resources/` - XSD files used in testing
-    - `simple.xsd` - Basic XSD with element and attributes
-    - `complex.xsd` - More complex structure with nested elements
-    - `types.xsd` - Various data type examples
-    - `restrictions.xsd` - Examples with restrictions and validations
-    - `advanced.xsd` - Complex nested structures and relations
-    - `ibm_example.xsd` - Sample from IBM documentation
+```
+streamlit-xsd-converter/
+├── app.py                  # Streamlit web application
+├── xsd_converter.py        # Core conversion logic
+├── pyproject.toml          # Project configuration
+├── uv.lock                 # uv dependency lock file
+├── LICENSE                 # License file
+├── README.md               # This file
+└── tests/                  # Unit tests
+    ├── __init__.py
+    ├── test_xsd_converter.py  # Test cases for the converter
+    └── resources/          # XSD files used in testing
+        ├── advanced.xsd    # Complex nested structures and relations
+        ├── array_test.xsd  # Array handling test (maxOccurs)  
+        ├── choice_test.xsd # Choice element handling test
+        ├── complex.xsd     # Complex structure with nested elements
+        ├── ibm_example.xsd # Sample from IBM documentation
+        ├── namespace_test.xsd # Namespace and reference handling test
+        ├── restrictions.xsd   # Restrictions and validations
+        ├── simple.xsd      # Basic XSD with element and attributes
+        └── types.xsd       # Various data type examples
+```
 
 ## Implementation Details
 
 The converter works by:
 1. Parsing the XSD document using ElementTree
-2. Mapping XSD elements and attributes to JSON Schema properties
-3. Converting types according to a predefined mapping
-4. Handling restrictions like minLength, maxLength, patterns, etc.
-5. Processing enumerations and translating them to JSON Schema enum values
-6. Preserving the hierarchical structure of complex types
+2. Extracting namespaces and handling references
+3. Mapping XSD elements and attributes to JSON Schema properties
+4. Converting types according to a predefined mapping
+5. Handling restrictions like minLength, maxLength, patterns, etc.
+6. Processing enumerations and translating them to JSON Schema enum values
+7. Preserving the hierarchical structure of complex types
+8. Handling arrays through maxOccurs attribute
+9. Supporting choice elements
 
 ## Development and Testing
 
 Run tests with pytest:
 
 ```bash
-python -m pytest
+uv run pytest
 ```
 
 Tests verify the converter's functionality against various XSD structures:
@@ -99,7 +110,9 @@ Tests verify the converter's functionality against various XSD structures:
 - Different data types
 - Restrictions and validations
 - Enumerations
-- Advanced structures
+- Arrays (maxOccurs)
+- Namespaces and element references
+- Choice elements
 
 ## License
 
